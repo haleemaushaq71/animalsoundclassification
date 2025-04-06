@@ -16,9 +16,20 @@ label_encoder_path = "label_encoder.pkl"
 sample_rate = 22050
 chunk_duration = 0.5  # seconds
 
+from googletrans import Translator
+
+translator = Translator()
+language = "en" 
+
+# Ask user for language preference
+user_choice = input("Choose language (EN for English / RO for Romanian): ").strip().lower()
+if user_choice == "ro":
+    language = "ro"
+
+
 # Human-friendly label messages 
 label_to_message = {
-    "dog_bark": "I am alert",
+    "dog_bark": "I feel threatened and want to attack",
     "dog_growl": "I am angry",
     "dog_grunt": "I am asking for food"
 }
@@ -28,8 +39,14 @@ engine = pyttsx3.init()
 engine.setProperty('rate', 130)  # Lower the value the slower it will speak
 
 def speak(text):
-    engine.say(text)
+    if language == "ro":
+        translated = translator.translate(text, dest='ro').text
+        print(f"[Romanian] {translated}")
+        engine.say(translated)
+    else:
+        engine.say(text)
     engine.runAndWait()
+
 
 # Load Model & Encoder
 if not os.path.exists(model_path) or not os.path.exists(label_encoder_path):
