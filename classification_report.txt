@@ -1,9 +1,9 @@
               precision    recall  f1-score   support
 
-    dog_bark       0.67      0.92      0.77        13
-   dog_growl       0.67      0.20      0.31        10
-   dog_grunt       0.69      0.82      0.75        11
+    dog_bark       0.80      0.92      0.86        13
+   dog_growl       0.86      0.60      0.71        10
+   dog_grunt       0.67      0.73      0.70        11
 
-    accuracy                           0.68        34
-   macro avg       0.68      0.65      0.61        34
-weighted avg       0.67      0.68      0.63        34
+    accuracy                           0.76        34
+   macro avg       0.77      0.75      0.75        34
+weighted avg       0.77      0.76      0.76        34

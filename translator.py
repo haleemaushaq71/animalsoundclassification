@@ -30,7 +30,7 @@ if user_choice == "ro":
 # Human-friendly label messages 
 label_to_message = {
     "dog_bark": "I feel threatened and want to attack",
-    "dog_growl": "I am angry",
+    "dog_growl": "I feel safe and I want to play",
     "dog_grunt": "I am asking for food"
 }
 
@@ -38,14 +38,22 @@ label_to_message = {
 engine = pyttsx3.init()
 engine.setProperty('rate', 130)  # Lower the value the slower it will speak
 
+from gtts import gTTS
+import playsound
+
 def speak(text):
-    if language == "ro":
-        translated = translator.translate(text, dest='ro').text
-        print(f"[Romanian] {translated}")
-        engine.say(translated)
-    else:
-        engine.say(text)
-    engine.runAndWait()
+    try:
+        if language == "ro":
+            tts = gTTS(text=text, lang='ro')
+        else:
+            tts = gTTS(text=text, lang='en')
+        
+        file_path = "last_output.mp3"  # Save in current directory
+        tts.save(file_path)
+        playsound.playsound(file_path)
+    except Exception as e:
+        print("Speech error:", e)
+
 
 
 # Load Model & Encoder
